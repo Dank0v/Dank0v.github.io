@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ids, gm, Ron, ro Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 50px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .calculator {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+        }
+        .calculator label {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .calculator .input-group {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        .column {
+            display: flex;
+            flex-direction: column;
+        }
+        .calculator input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+        /* Remove input number arrows */
+        input[type="number"]::-webkit-outer-spin-button,
+        input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        input[type="number"] {
+            -moz-appearance: textfield;
+        }
+        .header-red {
+            color: red;
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .header-blue {
+            color: blue;
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        /* Table Styling */
+        table {
+            width: 100%;
+            margin-top: 30px;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        .nmos-row {
+            background-color: #f0f0f0;
+        }
+        .nmos-row td:first-child {
+            color: red;
+            font-weight: bold;
+        }
+        .pmos-row {
+            background-color: #e0f7fa;
+        }
+        .pmos-row td:first-child {
+            color: blue;
+            font-weight: bold;
+        }
+        /* Dropdown Styling */
+        .dropdown {
+            cursor: pointer;
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f1f1f1;
+            margin-bottom: 5px;
+            text-align: left;
+        }
+        .dropdown-content {
+            display: none;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #fff;
+            position: absolute;
+            z-index: 1;
+            width: 100%;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        .dropdown-content input {
+            width: 100%;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <h1>Ids, gm, Ron, ro Calculator</h1>
+
+    <div class="calculator">
+        <div class="input-group">
+            <!-- NMOS Inputs -->
+            <div class="column">
+                <div class="header-red">NMOS</div>
+                <div>
+                    <label for="n_kp">K<sub>P</sub> (Process transconductance !Multiplied by 10^-6):</label>
+                    <input type="number" id="n_kp" placeholder="Enter KP">
+                </div>
+                <div>
+                    <label for="n_w">W (Width of the transistor):</label>
+                    <input type="number" id="n_w" placeholder="Enter W">
+                </div>
+                <div>
+                    <label for="n_l">L (Length of the transistor):</label>
+                    <input type="number" id="n_l" placeholder="Enter L">
+                </div>
+                <div>
+                    <label for="n_vth0">V<sub>th0</sub> (Threshold Voltage):</label>
+                    <input type="number" id="n_vth0" placeholder="Enter Vth0">
+                </div>
+                <div>
+                    <label for="n_lambda">λ (Channel length modulation):</label>
+                    <input type="number" id="n_lambda" placeholder="Enter λ">
+                </div>
+                <div>
+                    <label for="n_gamma">γ (Body effect coefficient):</label>
+                    <input type="number" id="n_gamma" placeholder="Enter γ">
+                </div>
+                <div>
+                    <label for="n_phi">Ф (Surface potential):</label>
+                    <input type="number" id="n_phi" placeholder="Enter Ф">
+                </div>
+                <div>
+                    <label for="n_vg">V<sub>g</sub> (Gate Voltage):</label>
+                    <input type="number" id="n_vg" placeholder="Enter Vg">
+                </div>
+                <div>
+                    <label for="n_vd">V<sub>d</sub> (Drain Voltage):</label>
+                    <input type="number" id="n_vd" placeholder="Enter Vd">
+                </div>
+                <div>
+                    <label for="n_vs">V<sub>s</sub> (Source Voltage):</label>
+                    <input type="number" id="n_vs" placeholder="Enter Vs">
+                </div>
+                <div>
+                    <label for="n_vb">V<sub>b</sub> (Bulk Voltage):</label>
+                    <input type="number" id="n_vb" placeholder="Enter Vb">
+                </div>
+                <!-- NMOS Expressions -->
+                <div class="expressions">
+                    <div class="dropdown" data-target="vgs-nmos-details">
+                        V<sub>gs</sub> (NMOS): <span id="vgs-nmos">0</span>
+                    </div>
+                    <div class="dropdown-content" id="vgs-nmos-details">
+                        <span>Formula: V<sub>g</sub> - V<sub>s</sub></span>
+                    </div>
+                    <div class="dropdown" data-target="vds-nmos-details">
+                        V<sub>ds</sub> (NMOS): <span id="vds-nmos">0</span>
+                    </div>
+                    <div class="dropdown-content" id="vds-nmos-details">
+                        <span>Formula: V<sub>d</sub> - V<sub>s</sub></span>
+                    </div>
+                    <div class="dropdown" data-target="vsb-nmos-details">
+                        V<sub>sb</sub> (NMOS): <span id="vsb-nmos">0</span>
+                    </div>
+                    <div class="dropdown-content" id="vsb-nmos-details">
+                        <span>Formula: V<sub>s</sub> - V<sub>b</sub></span>
+                    </div>
+                    <div class="dropdown" data-target="vth-nmos-details">
+                        V<sub>th</sub> (NMOS): <span id="vth-nmos">0</span>
+                    </div>
+                    <div class="dropdown-content" id="vth-nmos-details">
+                        <span>Formula: V<sub>th0</sub> + γ * (sqrt(2 * Ф + abs(V<sub>sb</sub>)) - sqrt(2 * Ф))</span>
+                    </div>
+                    <div class="dropdown" data-target="wl-nmos-details">
+                        W/L (NMOS): <span id="wl-nmos">0</span>
+                    </div>
+                    <div class="dropdown-content" id="wl-nmos-details">
+                        <span>Formula: W / L</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PMOS Inputs -->
+            <div class="column">
+                <div class="header-blue">PMOS</div>
+                <div>
+                    <label for="p_kp">K<sub>P</sub> (Process transconductance !Multiplied by 10^-6):</label>
+                    <input type="number" id="p_kp" placeholder="Enter KP">
+                </div>
+                <div>
+                    <label for="p_w">W (Width of the transistor):</label>
+                    <input type="number" id="p_w" placeholder="Enter W">
+                </div>
+                <div>
+                    <label for="p_l">L (Length of the transistor):</label>
+                    <input type="number" id="p_l" placeholder="Enter L">
+                </div>
+                <div>
+                    <label for="p_vth0">V<sub>th0</sub> (Threshold Voltage):</label>
+                    <input type="number" id="p_vth0" placeholder="Enter Vth0">
+                </div>
+                <div>
+                    <label for="p_lambda">λ (Channel length modulation):</label>
+                    <input type="number" id="p_lambda" placeholder="Enter λ">
+                </div>
+                <div>
+                    <label for="p_gamma">γ (Body effect coefficient):</label>
+                    <input type="number" id="p_gamma" placeholder="Enter γ">
+                </div>
+                <div>
+                    <label for="p_phi">Ф (Surface potential):</label>
+                    <input type="number" id="p_phi" placeholder="Enter Ф">
+                </div>
+                <div>
+                    <label for="p_vg">V<sub>g</sub> (Gate Voltage):</label>
+                    <input type="number" id="p_vg" placeholder="Enter Vg">
+                </div>
+                <div>
+                    <label for="p_vd">V<sub>d</sub> (Drain Voltage):</label>
+                    <input type="number" id="p_vd" placeholder="Enter Vd">
+                </div>
+                <div>
+                    <label for="p_vs">V<sub>s</sub> (Source Voltage):</label>
+                    <input type="number" id="p_vs" placeholder="Enter Vs">
+                </div>
+                <div>
+                    <label for="p_vb">V<sub>b</sub> (Bulk Voltage):</label>
+                    <input type="number" id="p_vb" placeholder="Enter Vb">
+                </div>
+                <!-- PMOS Expressions -->
+                <div class="expressions">
+                    <div class="dropdown" data-target="vgs-pmos-details">
+                        V<sub>gs</sub> (PMOS): <span id="vgs-pmos">0</span>
+                    </div>
+                    <div class="dropdown-content" id="vgs-pmos-details">
+                        <span>Formula: V<sub>g</sub> - V<sub>s</sub></span>
+                    </div>
+                    <div class="dropdown" data-target="vds-pmos-details">
+                        V<sub>ds</sub> (PMOS): <span id="vds-pmos">0</span>
+                    </div>
+                    <div class="dropdown-content" id="vds-pmos-details">
+                        <span>Formula: V<sub>d</sub> - V<sub>s</sub></span>
+                    </div>
+                    <div class="dropdown" data-target="vsb-pmos-details">
+                        V<sub>bs</sub> (PMOS): <span id="vsb-pmos">0</span>
+                    </div>
+                    <div class="dropdown-content" id="vsb-pmos-details">
+                        <span>Formula: V<sub>b</sub> - V<sub>s</sub></span>
+                    </div>
+                    <div class="dropdown" data-target="vth-pmos-details">
+                        V<sub>th</sub> (PMOS): <span id="vth-pmos">0</span>
+                    </div>
+                    <div class="dropdown-content" id="vth-pmos-details">
+                        <span>Formula: V<sub>th0</sub> - γ * (sqrt(2 * Ф + V<sub>bs</sub>) - sqrt(2 * Ф))</span>
+                    </div>
+                    <div class="dropdown" data-target="wl-pmos-details">
+                        W/L (PMOS): <span id="wl-pmos">0</span>
+                    </div>
+                    <div class="dropdown-content" id="wl-pmos-details">
+                        <span>Formula: W / L</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Output Table -->
+        <table>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Region</th>
+                    <th>Ids</th>
+                    <th>gm</th>
+                    <th>Ron</th>
+                    <th>ro</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="nmos-row">
+                    <td>NMOS</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr class="pmos-row">
+                    <td>PMOS</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        function calculateExpressions() {
+            // NMOS values
+            const vg_nmos = parseFloat(document.getElementById('n_vg').value) || 0;
+            const vs_nmos = parseFloat(document.getElementById('n_vs').value) || 0;
+            const vd_nmos = parseFloat(document.getElementById('n_vd').value) || 0;
+            const vb_nmos = parseFloat(document.getElementById('n_vb').value) || 0;
+            const vth0_nmos = parseFloat(document.getElementById('n_vth0').value) || 0;
+            const lambda_nmos = parseFloat(document.getElementById('n_lambda').value) || 0;
+            const kp_nmos = parseFloat(document.getElementById('n_kp').value) || 0;
+            const gamma_nmos = parseFloat(document.getElementById('n_gamma').value) || 0;
+            const phi_nmos = parseFloat(document.getElementById('n_phi').value) || 0;
+
+            // NMOS calculations
+            const vgs_nmos = vg_nmos - vs_nmos;
+            const vds_nmos = vd_nmos - vs_nmos;
+            const vsb_nmos = vs_nmos - vb_nmos;
+            const vth_nmos = vth0_nmos + gamma_nmos * (Math.sqrt(2 * phi_nmos + Math.abs(vsb_nmos)) - Math.sqrt(2 * phi_nmos));
+            const wl_nmos = (parseFloat(document.getElementById('n_w').value) || 0) / (parseFloat(document.getElementById('n_l').value) || 1);
+
+            // Display NMOS expressions
+            document.getElementById('vgs-nmos').textContent = vgs_nmos.toFixed(2);
+            document.getElementById('vds-nmos').textContent = vds_nmos.toFixed(2);
+            document.getElementById('vsb-nmos').textContent = vsb_nmos.toFixed(2);
+            document.getElementById('vth-nmos').textContent = vth_nmos.toFixed(2);
+            document.getElementById('wl-nmos').textContent = wl_nmos.toFixed(2);
+
+            // Determine the NMOS region
+            let nmos_region;
+            if (vgs_nmos < vth_nmos) {
+                nmos_region = "Cutoff";
+            } else if (vds_nmos > vgs_nmos - vth_nmos) {
+                nmos_region = "Saturation";
+            } else {
+                nmos_region = "Linear";
+            }
+
+            // Calculate Ids based on the region
+            let ids_nmos;
+            if (nmos_region === "Cutoff") {
+                ids_nmos = "NA";
+            } else if (nmos_region === "Saturation") {
+                ids_nmos = 0.5 * kp_nmos * 10**-6 * wl_nmos * (vgs_nmos - vth_nmos)**2 * (1 + lambda_nmos * vds_nmos);
+            } else { // Linear
+                ids_nmos = kp_nmos * 10**-6 * wl_nmos * ((vgs_nmos - vth_nmos) * vds_nmos - 0.5 * vds_nmos**2);
+            }
+
+            // Calculate gm based on the region
+            let gm_nmos;
+            if (nmos_region === "Saturation") {
+                gm_nmos = kp_nmos * 10**-6 * wl_nmos * (vgs_nmos - vth_nmos);
+            } else {
+                gm_nmos = "NA";
+            }
+
+            // Calculate Ron based on the region
+            let ron_nmos;
+            if (nmos_region === "Linear") {
+                ron_nmos = 1 / (kp_nmos * 10**-6 * wl_nmos * (vgs_nmos - vth_nmos));
+            } else {
+                ron_nmos = "NA";
+            }
+
+            // Calculate ro based on the region
+            let ro_nmos;
+            if (nmos_region === "Saturation") {
+                ro_nmos = 1 / (0.5 * kp_nmos * 10**-6 * wl_nmos * (vgs_nmos - vth_nmos)**2 * lambda_nmos);
+            } else {
+                ro_nmos = "NA";
+            }
+
+            // Update NMOS row in the table
+            document.querySelector('.nmos-row td:nth-child(2)').textContent = nmos_region;
+            document.querySelector('.nmos-row td:nth-child(3)').textContent = ids_nmos === "NA" ? ids_nmos : ids_nmos.toFixed(9);
+            document.querySelector('.nmos-row td:nth-child(4)').textContent = gm_nmos === "NA" ? gm_nmos : gm_nmos.toFixed(9);
+            document.querySelector('.nmos-row td:nth-child(5)').textContent = ron_nmos === "NA" ? ron_nmos : ron_nmos.toFixed(3);
+            document.querySelector('.nmos-row td:nth-child(6)').textContent = ro_nmos === "NA" ? ro_nmos : ro_nmos.toFixed(3);
+
+            // PMOS values
+            const vg_pmos = parseFloat(document.getElementById('p_vg').value) || 0;
+            const vs_pmos = parseFloat(document.getElementById('p_vs').value) || 0;
+            const vd_pmos = parseFloat(document.getElementById('p_vd').value) || 0;
+            const vb_pmos = parseFloat(document.getElementById('p_vb').value) || 0;
+            const vth0_pmos = parseFloat(document.getElementById('p_vth0').value) || 0;
+            const lambda_pmos = parseFloat(document.getElementById('p_lambda').value) || 0;
+            const kp_pmos = parseFloat(document.getElementById('p_kp').value) || 0;
+            const gamma_pmos = parseFloat(document.getElementById('p_gamma').value) || 0;
+            const phi_pmos = parseFloat(document.getElementById('p_phi').value) || 0;
+
+            // PMOS calculations
+            const vgs_pmos = vg_pmos - vs_pmos;
+            const vds_pmos = vd_pmos - vs_pmos;
+            const vsb_pmos = vb_pmos - vs_pmos;
+            const vth_pmos = vth0_pmos - gamma_pmos * (Math.sqrt(2 * phi_pmos + vsb_pmos) - Math.sqrt(2 * phi_pmos));
+            const wl_pmos = (parseFloat(document.getElementById('p_w').value) || 0) / (parseFloat(document.getElementById('p_l').value) || 1);
+
+            // Display PMOS expressions
+            document.getElementById('vgs-pmos').textContent = vgs_pmos.toFixed(2);
+            document.getElementById('vds-pmos').textContent = vds_pmos.toFixed(2);
+            document.getElementById('vsb-pmos').textContent = vsb_pmos.toFixed(2);
+            document.getElementById('vth-pmos').textContent = vth_pmos.toFixed(2);
+            document.getElementById('wl-pmos').textContent = wl_pmos.toFixed(2);
+
+            // Determine the PMOS region
+            let pmos_region;
+            if (vgs_pmos > vth_pmos) {
+                pmos_region = "Cutoff";
+            } else if (vds_pmos < vgs_pmos - vth_pmos) {
+                pmos_region = "Saturation";
+            } else {
+                pmos_region = "Linear";
+            }
+
+            // Calculate Ids based on the region
+            let ids_pmos;
+            if (pmos_region === "Cutoff") {
+                ids_pmos = "NA";
+            } else if (pmos_region === "Saturation") {
+                ids_pmos = 0.5 * kp_pmos * 10**-6 * wl_pmos * Math.abs(vgs_pmos - vth_pmos)**2 * (1 + lambda_pmos * Math.abs(vds_pmos));
+            } else { // Linear
+                ids_pmos = kp_pmos * 10**-6 * wl_pmos * (Math.abs(vgs_pmos - vth_pmos) * Math.abs(vds_pmos) - 0.5 * Math.abs(vds_pmos**2));
+            }
+
+            // Calculate gm based on the region
+            let gm_pmos;
+            if (pmos_region === "Saturation") {
+                gm_pmos = kp_pmos * 10**-6 * wl_pmos * Math.abs(vgs_pmos - vth_pmos);
+            } else {
+                gm_pmos = "NA";
+            }
+
+            // Calculate Ron based on the region
+            let ron_pmos;
+            if (pmos_region === "Linear") {
+                ron_pmos = 1 / (kp_pmos * 10**-6 * wl_pmos * Math.abs(vgs_pmos - vth_pmos));
+            } else {
+                ron_pmos = "NA";
+            }
+
+            // Calculate ro based on the region
+            let ro_pmos;
+            if (pmos_region === "Saturation") {
+                ro_pmos = 1 / (0.5 * kp_pmos * 10**-6 * wl_pmos * Math.abs(vgs_pmos - vth_pmos)**2 * lambda_pmos);
+            } else {
+                ro_pmos = "NA";
+            }
+
+            // Update PMOS row in the table
+            document.querySelector('.pmos-row td:nth-child(2)').textContent = pmos_region;
+            document.querySelector('.pmos-row td:nth-child(3)').textContent = ids_pmos === "NA" ? ids_pmos : ids_pmos.toFixed(9);
+            document.querySelector('.pmos-row td:nth-child(4)').textContent = gm_pmos === "NA" ? gm_pmos : gm_pmos.toFixed(9);
+            document.querySelector('.pmos-row td:nth-child(5)').textContent = ron_pmos === "NA" ? ron_pmos : ron_pmos.toFixed(3);
+            document.querySelector('.pmos-row td:nth-child(6)').textContent = ro_pmos === "NA" ? ro_pmos : ro_pmos.toFixed(3);
+        }
+
+        function toggleDropdown(event) {
+            const targetId = event.currentTarget.getAttribute('data-target');
+            const dropdownContent = document.getElementById(targetId);
+            const isVisible = dropdownContent.style.display === 'block';
+            
+            // Hide all dropdowns
+            document.querySelectorAll('.dropdown-content').forEach(content => content.style.display = 'none');
+            
+            // Toggle the clicked dropdown
+            dropdownContent.style.display = isVisible ? 'none' : 'block';
+        }
+
+        document.querySelectorAll('.dropdown').forEach(dropdown => {
+            dropdown.addEventListener('click', toggleDropdown);
+        });
+
+        document.querySelectorAll('input').forEach(input => {
+            input.addEventListener('input', calculateExpressions);
+        });
+
+        // Initial calculation
+        calculateExpressions();
+    </script>
+</body>
+</html>
