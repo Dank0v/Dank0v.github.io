@@ -7,6 +7,7 @@
     <style>
         body {
             font-family: Arial, sans-serif;
+            background-color: rgb(240, 240, 240); /* Light gray background */
             text-align: center;
             position: relative;
         }
@@ -23,7 +24,7 @@
             width: 300px;
             height: 200px;
             object-fit: contain;
-            border: 3px solid #555; /* Border around the image */
+            border: 3px solid #000; /* Border around the image */
             border-radius: 10px;    /* Rounded corners */
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
         }
@@ -31,9 +32,9 @@
         .home-button {
             position: absolute;
             top: 20px;
-            right: 20px;
+            left: 20px;
             padding: 10px 20px;
-            background-color: #007BFF; /* Button color */
+            background-color: #333; /* Button color */
             color: white;
             border: none;
             border-radius: 5px;
@@ -43,14 +44,58 @@
             text-decoration: none;
         }
         .home-button:hover {
-            background-color: #0056b3; /* Darker blue on hover */
+            background-color: #555;
+        }
+        /* Table styling */
+        table {
+            margin: 20px auto; /* Center the table */
+            border-collapse: collapse; /* Remove space between borders */
+            width: 13.5%; /* Set smaller width for the table */
+        }
+        th, td {
+            border: 2px solid #555; /* Border for table cells */
+            padding: 5px; /* Padding inside cells */
+            text-align: center; /* Center align text for headers */
+            font-weight: bold; /* Make text bold */
+        }
+        th {
+            background-color: #ff9100;
+        }
+        .input-container {
+            display: flex; /* Flexbox to arrange inputs in a row */
+            align-items: center; /* Center align items vertically */
+            margin-bottom: 5px; /* Space between input rows */
+        }
+        .input-label {
+            margin-right: 10px; /* Space between label and input */
+            width: 50px; /* Fixed width for labels */
+        }
+        input {
+            width: 70px; /* Set smaller fixed width for inputs */
+            padding: 5px; /* Padding inside inputs */
+            border: 1px solid #ccc; /* Border for inputs */
+            border-radius: 4px; /* Rounded corners for inputs */
+        }
+        /* Hide the spinner arrows in number inputs */
+        input[type="number"] {
+            -moz-appearance: textfield; /* Firefox */
+        }
+
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none; /* Chrome, Safari, Edge */
+            margin: 0; /* Remove any margin */
+        }
+        
+        .centered {
+            text-align: center; /* Center align text */
         }
     </style>
 </head>
 <body>
 
     <!-- HOME button -->
-    <a href="danko0v.github.io" class="home-button">Home</a>
+    <a href="index.html" class="home-button">Home</a>
 
     <h1>Op Amp Calculator</h1>
 
@@ -64,6 +109,94 @@
             <img src="docs/assets/inverting.png" alt="Inverting Op Amp">
         </div>
     </div>
+
+    <!-- Table for calculations -->
+    <table>
+        <tr>
+            <th>Finding Av<sub>CL</sub></th>
+            <th>Finding Av<sub>OL</sub></th>
+        </tr>
+        <tr>
+            <td>
+                <div>
+                    <label for="rf">Rf:</label>
+                    <input type="number" id="rf" placeholder="Enter Rf">
+                </div>
+                <div>
+                    <label for="rin">Rin:</label>
+                    <input type="number" id="rin" placeholder="Enter Rin">
+                </div>
+                <div>
+                    <label for="AvCL1">Av<sub>OL</sub>:</label>
+                    <input type="number" id="AvCL1" placeholder="Enter AvOL">
+                </div>
+            </td>
+            <td>
+                <div>
+                    <label for="rf">Rf:</label>
+                    <input type="number" id="rf" placeholder="Enter Rf">
+                </div>
+                <div>
+                    <label for="rin">Rin:</label>
+                    <input type="number" id="rin" placeholder="Enter Rin">
+                </div>
+                <div>
+                    <label for="AvCL1">Av<sub>CL</sub>:</label>
+                    <input type="number" id="AvCL1" placeholder="Enter AvCL">
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" class="centered">Non-Inverting</td> <!-- Centering this text -->
+        </tr>
+        <tr>
+            <td>
+                <div class="input-container">
+                    <label class="input-label">Av<sub>CL</sub>:</label>
+                    <input type="text">
+                </div>
+                <div class="input-container">
+                    <label class="input-label">dB<sub>20</sub>:</label>
+                    <input type="text">
+                </div>
+            </td>
+            <td>
+                <div class="input-container">
+                    <label class="input-label">Av<sub>OL</sub>:</label>
+                    <input type="text">
+                </div>
+                <div class="input-container">
+                    <label class="input-label">dB<sub>20</sub>:</label>
+                    <input type="text">
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" class="centered">Inverting</td> <!-- Centering this text -->
+        </tr>
+        <tr>
+            <td>
+                <div class="input-container">
+                    <label class="input-label">Av<sub>CL</sub>:</label>
+                    <input type="text">
+                </div>
+                <div class="input-container">
+                    <label class="input-label">dB<sub>20</sub>:</label>
+                    <input type="text">
+                </div>
+            </td>
+            <td>
+                <div class="input-container">
+                    <label class="input-label">Av<sub>OL</sub>:</label>
+                    <input type="text">
+                </div>
+                <div class="input-container">
+                    <label class="input-label">dB<sub>20</sub>:</label>
+                    <input type="text">
+                </div>
+            </td>
+        </tr>
+    </table>
 
 </body>
 </html>
