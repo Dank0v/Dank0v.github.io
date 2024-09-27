@@ -8,6 +8,7 @@
         body {
             font-family: Arial, sans-serif;
             text-align: center;
+            position: relative;
         }
         .container {
             display: flex;
@@ -18,36 +19,49 @@
             margin: 0 20px;
             text-align: center;
         }
-        .image-placeholder {
-            width: 300px;
-            height: 200px;
-            margin: 10px;
-            border: 2px dashed #ccc;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-            color: #aaa;
-        }
         img {
             width: 300px;
             height: 200px;
             object-fit: contain;
+            border: 3px solid #555; /* Border around the image */
+            border-radius: 10px;    /* Rounded corners */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+        }
+        /* Styling for the HOME button */
+        .home-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background-color: #007BFF; /* Button color */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            text-transform: uppercase;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .home-button:hover {
+            background-color: #0056b3; /* Darker blue on hover */
         }
     </style>
 </head>
 <body>
+
+    <!-- HOME button -->
+    <a href="danko0v.github.io" class="home-button">Home</a>
 
     <h1>Op Amp Calculator</h1>
 
     <div class="container">
         <div class="image-container">
             <h2>Non-inverting</h2>
-            <div class="image-placeholder">Image 1</div>
+            <img src="docs/assets/non_inverting.png" alt="Non-inverting Op Amp">
         </div>
         <div class="image-container">
             <h2>Inverting</h2>
-            <div class="image-placeholder">Image 2</div>
+            <img src="docs/assets/inverting.png" alt="Inverting Op Amp">
         </div>
     </div>
 
