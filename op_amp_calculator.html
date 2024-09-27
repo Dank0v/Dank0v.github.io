@@ -78,12 +78,12 @@
         }
         /* Hide the spinner arrows in number inputs */
         input[type="number"] {
-            -moz-appearance: textfield; /* Firefox */
+            appearance: textfield; /* Standard property for all browsers */
         }
 
         input[type="number"]::-webkit-inner-spin-button,
         input[type="number"]::-webkit-outer-spin-button {
-            -webkit-appearance: none; /* Chrome, Safari, Edge */
+            appearance: none; /* Remove the default appearance */
             margin: 0; /* Remove any margin */
         }
         
