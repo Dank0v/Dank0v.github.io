@@ -1,4 +1,4 @@
-# [Dankov's site](index.html)
+# [Dankov's site](dank0v.github.io)
 
 Сайт на Данаил "Dankov" Данов за електроника.
 
