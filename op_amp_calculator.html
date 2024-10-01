@@ -50,7 +50,7 @@
         table {
             margin: 20px auto; /* Center the table */
             border-collapse: collapse; /* Remove space between borders */
-            width: 13.5%; /* Set smaller width for the table */
+            width: 25%; /* Adjust the table width to fit content */
         }
         th, td {
             border: 2px solid #555; /* Border for table cells */
@@ -86,9 +86,12 @@
             appearance: none; /* Remove the default appearance */
             margin: 0; /* Remove any margin */
         }
-        
+
         .centered {
             text-align: center; /* Center align text */
+        }
+        .output-label {
+            font-weight: bold;
         }
     </style>
 </head>
@@ -119,84 +122,93 @@
         <tr>
             <td>
                 <div>
-                    <label for="rf">Rf:</label>
-                    <input type="number" id="rf" placeholder="Enter Rf">
+                    <label for="rf1">Rf:</label>
+                    <input type="number" id="rf1" placeholder="Enter Rf" oninput="calculateExpressions()">
                 </div>
                 <div>
-                    <label for="rin">Rin:</label>
-                    <input type="number" id="rin" placeholder="Enter Rin">
+                    <label for="rin1">Rin:</label>
+                    <input type="number" id="rin1" placeholder="Enter Rin" oninput="calculateExpressions()">
                 </div>
                 <div>
-                    <label for="AvCL1">Av<sub>OL</sub>:</label>
-                    <input type="number" id="AvCL1" placeholder="Enter AvOL">
+                    <label for="AvOL1">Av<sub>OL</sub>:</label>
+                    <input type="number" id="AvOL1" placeholder="Enter AvOL" oninput="calculateExpressions()">
                 </div>
             </td>
             <td>
                 <div>
-                    <label for="rf">Rf:</label>
-                    <input type="number" id="rf" placeholder="Enter Rf">
+                    <label for="rf2">Rf:</label>
+                    <input type="number" id="rf2" placeholder="Enter Rf" oninput="calculateExpressions()">
                 </div>
                 <div>
-                    <label for="rin">Rin:</label>
-                    <input type="number" id="rin" placeholder="Enter Rin">
+                    <label for="rin2">Rin:</label>
+                    <input type="number" id="rin2" placeholder="Enter Rin" oninput="calculateExpressions()">
                 </div>
                 <div>
-                    <label for="AvCL1">Av<sub>CL</sub>:</label>
-                    <input type="number" id="AvCL1" placeholder="Enter AvCL">
+                    <label for="AvOL2">Av<sub>CL</sub>:</label>
+                    <input type="number" id="AvOL2" placeholder="Enter AvOL" oninput="calculateExpressions()">
                 </div>
             </td>
         </tr>
         <tr>
-            <td colspan="2" class="centered">Non-Inverting</td> <!-- Centering this text -->
+            <td colspan="2" class="centered">Non-Inverting</td>
         </tr>
         <tr>
-            <td>
-                <div class="input-container">
-                    <label class="input-label">Av<sub>CL</sub>:</label>
-                    <input type="text">
-                </div>
-                <div class="input-container">
-                    <label class="input-label">dB<sub>20</sub>:</label>
-                    <input type="text">
-                </div>
-            </td>
-            <td>
-                <div class="input-container">
-                    <label class="input-label">Av<sub>OL</sub>:</label>
-                    <input type="text">
-                </div>
-                <div class="input-container">
-                    <label class="input-label">dB<sub>20</sub>:</label>
-                    <input type="text">
-                </div>
-            </td>
+            <td class="output-label">Av<sub>CL</sub>: <span id="AvCL1Output">0.00</span></td>
+            <td class="output-label">Av<sub>OL</sub>: <span id="AvCL2Output">0.00</span></td>
         </tr>
         <tr>
-            <td colspan="2" class="centered">Inverting</td> <!-- Centering this text -->
+            <td class="output-label">dB<sub>20</sub>: <span id="dB201Output">0.00</span></td>
+            <td class="output-label">dB<sub>20</sub>: <span id="dB202Output">0.00</span></td>
         </tr>
         <tr>
-            <td>
-                <div class="input-container">
-                    <label class="input-label">Av<sub>CL</sub>:</label>
-                    <input type="text">
-                </div>
-                <div class="input-container">
-                    <label class="input-label">dB<sub>20</sub>:</label>
-                    <input type="text">
-                </div>
-            </td>
-            <td>
-                <div class="input-container">
-                    <label class="input-label">Av<sub>OL</sub>:</label>
-                    <input type="text">
-                </div>
-                <div class="input-container">
-                    <label class="input-label">dB<sub>20</sub>:</label>
-                    <input type="text">
-                </div>
-            </td>
+            <td colspan="2" class="centered">Inverting</td>
+        </tr>
+        <tr>
+            <td class="output-label">Av<sub>CL</sub>: <span id="AvCl1Output">0.00</span></td>
+            <td class="output-label">Av<sub>OL</sub>: <span id="AvCl2Output">0.00</span></td>
+        </tr>
+        <tr>
+            <td class="output-label">dB<sub>20</sub>: <span id="db201Output">0.00</span></td>
+            <td class="output-label">dB<sub>20</sub>: <span id="db202Output">0.00</span></td>
         </tr>
     </table>
+
+    <script>
+    function calculateExpressions() {
+        // Values for the first set
+        const Rf1 = parseFloat(document.getElementById('rf1').value) || 0;
+        const Rin1 = parseFloat(document.getElementById('rin1').value) || 0;
+        const AvOl1 = parseFloat(document.getElementById('AvOL1').value) || 0;
+
+        // Values for the second set
+        const Rf2 = parseFloat(document.getElementById('rf2').value) || 0;
+        const Rin2 = parseFloat(document.getElementById('rin2').value) || 0;
+        const AvOl2 = parseFloat(document.getElementById('AvOL2').value) || 0;
+
+        // Calculations for the first set
+        const AvCL1 = Rin1 === 0 ? 0 : (1 + Rf1 / Rin1) / (1 + (1 / AvOl1) * (1 + Rf1 / Rin1));
+        const dB201 = AvCL1 > 0 ? 20 * Math.log10(AvCL1) : 0;
+        const AvCl1 = Rin1 === 0 ? 0 : (Rf1 / Rin1) / (1 + (1 / AvOl1) * (1 + Rf1 / Rin1));
+        const db201 = AvCl1 !== 0 ? 20 * Math.log10(Math.abs(AvCl1)) : 0;
+
+        // Calculations for the second set
+        const AvCL2 = Rin2 === 0 ? 0 : (1 + Rf2 / Rin2) / (1 + (1 / AvOl2) * (1 + Rf2 / Rin2));
+        const dB202 = AvCL2 > 0 ? 20 * Math.log10(AvCL2) : 0;
+        const AvCl2 = Rin2 === 0 ? 0 : (Rf2 / Rin2) / (1 + (1 / AvOl2) * (1 + Rf2 / Rin2));
+        const db202 = AvCl2 !== 0 ? 20 * Math.log10(Math.abs(AvCl2)) : 0;
+
+        // Update the displayed values in the table
+        document.getElementById('AvCL1Output').innerText = AvCL1.toFixed(2);
+        document.getElementById('dB201Output').innerText = dB201.toFixed(2);
+        document.getElementById('AvCl1Output').innerText = AvCl1.toFixed(2);
+        document.getElementById('db201Output').innerText = db201.toFixed(2);
+        
+        document.getElementById('AvCL2Output').innerText = AvCL2.toFixed(2);
+        document.getElementById('dB202Output').innerText = dB202.toFixed(2);
+        document.getElementById('AvCl2Output').innerText = AvCl2.toFixed(2);
+        document.getElementById('db202Output').innerText = db202.toFixed(2);
+    }
+    </script>
 
 </body>
 </html>
