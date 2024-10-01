@@ -61,6 +61,10 @@
         th {
             background-color: #ff9100;
         }
+        /* Highlighted rows (for Non-Inverting and Inverting rows) */
+        .highlight {
+            background-color: #ffffcc; /* Light yellow background */
+        }
         .input-container {
             display: flex; /* Flexbox to arrange inputs in a row */
             align-items: center; /* Center align items vertically */
@@ -149,7 +153,8 @@
                 </div>
             </td>
         </tr>
-        <tr>
+        <!-- Non-Inverting row with highlight class -->
+        <tr class="highlight">
             <td colspan="2" class="centered">Non-Inverting</td>
         </tr>
         <tr>
@@ -160,7 +165,8 @@
             <td class="output-label">dB<sub>20</sub>: <span id="dB201Output">0.00</span></td>
             <td class="output-label">dB<sub>20</sub>: <span id="dB202Output">0.00</span></td>
         </tr>
-        <tr>
+        <!-- Inverting row with highlight class -->
+        <tr class="highlight">
             <td colspan="2" class="centered">Inverting</td>
         </tr>
         <tr>
