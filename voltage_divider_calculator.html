@@ -2,21 +2,251 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Voltage Divider calculator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Op Amp Calculator</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 50px;
+            background-color: #f0f0f0;
+            text-align: center;
+            position: relative;
         }
-        h1 {
+        .container {
+            display: flex;
+            justify-content: center;
+            margin-top: 50px;
+        }
+        .image-container {
+            margin: 0 20px;
             text-align: center;
         }
-        /* Additional styling as needed */
+        img {
+            width: 300px;
+            height: 200px;
+            object-fit: contain;
+            border: 3px solid #000;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .home-button {
+            position: absolute;
+            top: 0px;
+            left: 20px;
+            padding: 10px 20px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            text-transform: uppercase;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .home-button:hover {
+            background-color: #555;
+        }
+        .main-container {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+        .table-container {
+            margin: 0 20px;
+        }
+        .image-box-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        table {
+            margin: 20px auto;
+            border-collapse: collapse;
+            width: 25%;
+        }
+        th, td {
+            border: 2px solid #555;
+            padding: 5px;
+            text-align: center;
+            font-weight: bold;
+        }
+        th {
+            background-color: #ff9100;
+        }
+        .highlight {
+            background-color: #ffffcc;
+        }
+        .input-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+        .input-label {
+            margin-right: 10px;
+            width: 50px;
+        }
+        input {
+            width: 70px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        input[type="number"] {
+            appearance: textfield;
+        }
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            appearance: none;
+            margin: 0;
+        }
+        .centered {
+            text-align: center;
+        }
+        .output-label {
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
-    <h1>Voltage Divider Calculator</h1>
-    <!-- Implement your Excel spreadsheet functionality here -->
-    <p>Скоро няма да бъде!</p>
+
+    <!-- HOME button -->
+    <a href="index.html" class="home-button">Home</a>
+
+    <h1>Op Amp Calculator</h1>
+
+    <div class="container">
+        <div class="image-container">
+            <h2>Non-inverting</h2>
+            <img src="docs/assets/non_inverting.png" alt="Non-inverting Op Amp">
+        </div>
+        <div class="image-container">
+            <h2>Inverting</h2>
+            <img src="docs/assets/inverting.png" alt="Inverting Op Amp">
+        </div>
+    </div>
+
+    <!-- Main container for images and table -->
+    <div class="main-container">
+        <!-- Left image boxes -->
+        <div class="image-box-container">
+            <div class="image-container">
+                <img src="docs/assets/image1.png" alt="Additional Image 1">
+            </div>
+            <div class="image-container">
+                <img src="docs/assets/image2.png" alt="Additional Image 2">
+            </div>
+        </div>
+
+        <!-- Table in the middle -->
+        <div class="table-container">
+            <table>
+                <tr>
+                    <th>Finding Av<sub>CL</sub></th>
+                    <th>Finding Av<sub>OL</sub></th>
+                </tr>
+                <tr>
+                    <td>
+                        <div>
+                            <label for="rf1">Rf:</label>
+                            <input type="number" id="rf1" placeholder="Enter Rf" oninput="calculateExpressions()">
+                        </div>
+                        <div>
+                            <label for="rin1">Rin:</label>
+                            <input type="number" id="rin1" placeholder="Enter Rin" oninput="calculateExpressions()">
+                        </div>
+                        <div>
+                            <label for="AvOL1">Av<sub>OL</sub>:</label>
+                            <input type="number" id="AvOL1" placeholder="Enter AvOL" oninput="calculateExpressions()">
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <label for="rf2">Rf:</label>
+                            <input type="number" id="rf2" placeholder="Enter Rf" oninput="calculateExpressions()">
+                        </div>
+                        <div>
+                            <label for="rin2">Rin:</label>
+                            <input type="number" id="rin2" placeholder="Enter Rin" oninput="calculateExpressions()">
+                        </div>
+                        <div>
+                            <label for="AvCL2">Av<sub>CL</sub>:</label>
+                            <input type="number" id="AvCL2" placeholder="Enter AvCL" oninput="calculateExpressions()">
+                        </div>
+                    </td>
+                </tr>
+                <!-- Non-Inverting row with highlight class -->
+                <tr class="highlight">
+                    <td colspan="2" class="centered">Non-Inverting</td>
+                </tr>
+                <tr>
+                    <td class="output-label">Av<sub>CL</sub>: <span id="AvCL1Output">0.00</span></td>
+                    <td class="output-label">Av<sub>OL</sub>: <span id="AvOL2Output">0.00</span></td>
+                </tr>
+                <tr>
+                    <td class="output-label">dB<sub>20</sub>: <span id="dB201Output">0.00</span></td>
+                    <td class="output-label">dB<sub>20</sub>: <span id="dB202Output">0.00</span></td>
+                </tr>
+                <!-- Inverting row with highlight class -->
+                <tr class="highlight">
+                    <td colspan="2" class="centered">Inverting</td>
+                </tr>
+                <tr>
+                    <td class="output-label">Av<sub>CL</sub>: <span id="AvCl1Output">0.00</span></td>
+                    <td class="output-label">Av<sub>OL</sub>: <span id="AvOl2Output">0.00</span></td>
+                </tr>
+                <tr>
+                    <td class="output-label">dB<sub>20</sub>: <span id="db201Output">0.00</span></td>
+                    <td class="output-label">dB<sub>20</sub>: <span id="db202Output">0.00</span></td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Right image boxes -->
+        <div class="image-box-container">
+            <div class="image-container">
+                <img src="docs/assets/image3.png" alt="Additional Image 3">
+            </div>
+            <div class="image-container">
+                <img src="docs/assets/image4.png" alt="Additional Image 4">
+            </div>
+        </div>
+    </div>
+
+    <script>
+    function calculateExpressions() {
+        // Values for the first set
+        const Rf1 = parseFloat(document.getElementById('rf1').value) || 0;
+        const Rin1 = parseFloat(document.getElementById('rin1').value) || 0;
+        const AvOl1 = parseFloat(document.getElementById('AvOL1').value) || 0;
+
+        // Values for the second set
+        const Rf2 = parseFloat(document.getElementById('rf2').value) || 0;
+        const Rin2 = parseFloat(document.getElementById('rin2').value) || 0;
+        const AvCl2 = parseFloat(document.getElementById('AvCL2').value) || 0;
+
+        // Calculations for the first set
+        const AvCL1 = Rin1 === 0 ? 0 : (1 + Rf1 / Rin1) / (1 + (1 / AvOl1) * (1 + Rf1 / Rin1));
+        const dB201 = AvCL1 > 0 ? 20 * Math.log10(AvCL1) : 0;
+        const AvCl1 = Rin1 === 0 ? 0 : (-(Rf1 / Rin1) / (1 + (1 / AvOl1) * (1 + Rf1 / Rin1)));
+        const db201 = AvCl1 !== 0 ? 20 * Math.log10(Math.abs(AvCl1)) : 0;
+
+        // Calculations for the second set
+        const AvOL2 = Rin2 === 0 ? 0 : ((AvCl2 * (1 + Rf2 / Rin2)) / ((1 + Rf2 / Rin2) - AvCl2));
+        const dB202 = AvCL2 > 0 ? 20 * Math.log10(AvOL2) : 0;
+        const AvOl2 = Rin2 === 0 ? 0 : (-(Rin2 * AvCl2 + Rf2 * AvCl2) / (Rf2 + Rin2 * AvCl2));
+        const db202 = AvCl2 !== 0 ? 20 * Math.log10(Math.abs(AvOl2)) : 0;
+
+        // Update the displayed values in the table
+        document.getElementById('AvCL1Output').innerText = AvCL1.toFixed(2);
+        document.getElementById('dB201Output').innerText = dB201.toFixed(2);
+        document.getElementById('AvCl1Output').innerText = AvCl1.toFixed(2);
+        document.getElementById('db201Output').innerText = db201.toFixed(2);
+        
+        document.getElementById('AvOL2Output').innerText = AvOL2.toFixed(2);
+        document.getElementById('dB202Output').innerText = dB202.toFixed(2);
+        document.getElementById('AvOl2Output').innerText = AvOl2.toFixed(2);
+        document.getElementById('db202Output').innerText = db202.toFixed(2);
+    }
+    </script>
+
 </body>
 </html>
