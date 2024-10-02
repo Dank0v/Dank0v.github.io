@@ -202,7 +202,7 @@
         const AvOL2 = Rin2 === 0 ? 0 : ((AvCl2 * (1 + Rf2 / Rin2)) / ((1 + Rf2 / Rin2) - AvCl2));
         const dB202 = AvOL2 > 0 ? 20 * Math.log10(AvOL2) : 0;
         const AvOl2 = Rin2 === 0 ? 0 : (-(Rin2 * AvCl2 + Rf2 * AvCl2) / (Rf2 + Rin2 * AvCl2));
-        const db202 = AvCl2 !== 0 ? 20 * Math.log10(Math.abs(AvOl2)) : 0;
+        const db202 = AvOl2 !== 0 ? 20 * Math.log10(Math.abs(AvOl2)) : 0;
 
         // Update the displayed values in the table
         document.getElementById('AvCL1Output').innerText = AvCL1.toFixed(2);
