@@ -160,7 +160,7 @@
                     <input type="number" id="n_l" placeholder="Enter L">
                 </div>
                 <div>
-                    <label for="n_vth0">V<sub>th0</sub> (Threshold Voltage; V):</label>
+                    <label for="n_vth0">V<sub>TH0</sub> (Threshold Voltage; V):</label>
                     <input type="number" id="n_vth0" placeholder="Enter Vth0">
                 </div>
                 <div>
@@ -176,46 +176,46 @@
                     <input type="number" id="n_phi" placeholder="Enter Ф">
                 </div>
                 <div>
-                    <label for="n_vg">V<sub>g</sub> (Gate Voltage; V):</label>
+                    <label for="n_vg">V<sub>G</sub> (Gate Voltage; V):</label>
                     <input type="number" id="n_vg" placeholder="Enter Vg">
                 </div>
                 <div>
-                    <label for="n_vd">V<sub>d</sub> (Drain Voltage; V):</label>
+                    <label for="n_vd">V<sub>D</sub> (Drain Voltage; V):</label>
                     <input type="number" id="n_vd" placeholder="Enter Vd">
                 </div>
                 <div>
-                    <label for="n_vs">V<sub>s</sub> (Source Voltage; V):</label>
+                    <label for="n_vs">V<sub>S</sub> (Source Voltage; V):</label>
                     <input type="number" id="n_vs" placeholder="Enter Vs">
                 </div>
                 <div>
-                    <label for="n_vb">V<sub>b</sub> (Bulk Voltage; V):</label>
+                    <label for="n_vb">V<sub>B</sub> (Bulk Voltage; V):</label>
                     <input type="number" id="n_vb" placeholder="Enter Vb">
                 </div>
                 <!-- NMOS Expressions -->
                 <div class="expressions">
                     <div class="dropdown" data-target="vgs-nmos-details">
-                        V<sub>gs</sub> (NMOS): <span id="vgs-nmos">0</span>
+                        V<sub>GS</sub> (NMOS): <span id="vgs-nmos">0</span>
                     </div>
                     <div class="dropdown-content" id="vgs-nmos-details">
-                        <span>Formula: V<sub>g</sub> - V<sub>s</sub></span>
+                        <span>Formula: V<sub>G</sub> - V<sub>S</sub></span>
                     </div>
                     <div class="dropdown" data-target="vds-nmos-details">
-                        V<sub>ds</sub> (NMOS): <span id="vds-nmos">0</span>
+                        V<sub>DS</sub> (NMOS): <span id="vds-nmos">0</span>
                     </div>
                     <div class="dropdown-content" id="vds-nmos-details">
-                        <span>Formula: V<sub>d</sub> - V<sub>s</sub></span>
+                        <span>Formula: V<sub>D</sub> - V<sub>S</sub></span>
                     </div>
                     <div class="dropdown" data-target="vsb-nmos-details">
-                        V<sub>sb</sub> (NMOS): <span id="vsb-nmos">0</span>
+                        V<sub>SB</sub> (NMOS): <span id="vsb-nmos">0</span>
                     </div>
                     <div class="dropdown-content" id="vsb-nmos-details">
-                        <span>Formula: V<sub>s</sub> - V<sub>b</sub></span>
+                        <span>Formula: V<sub>S</sub> - V<sub>B</sub></span>
                     </div>
                     <div class="dropdown" data-target="vth-nmos-details">
-                        V<sub>th</sub> (NMOS): <span id="vth-nmos">0</span>
+                        V<sub>TH</sub> (NMOS): <span id="vth-nmos">0</span>
                     </div>
                     <div class="dropdown-content" id="vth-nmos-details">
-                        <span>Formula: V<sub>th0</sub> + γ * (sqrt(2 * Ф + abs(V<sub>sb</sub>)) - sqrt(2 * Ф))</span>
+                        <span>Formula: V<sub>TH0</sub> + γ * (sqrt(2 * Ф + abs(V<sub>SB</sub>)) - sqrt(2 * Ф))</span>
                     </div>
                     <div class="dropdown" data-target="wl-nmos-details">
                         W/L (NMOS): <span id="wl-nmos">0</span>
@@ -242,7 +242,7 @@
                     <input type="number" id="p_l" placeholder="Enter L">
                 </div>
                 <div>
-                    <label for="p_vth0">V<sub>th0</sub> (Threshold Voltage; V):</label>
+                    <label for="p_vth0">V<sub>TH0</sub> (Threshold Voltage; V):</label>
                     <input type="number" id="p_vth0" placeholder="Enter Vth0">
                 </div>
                 <div>
@@ -258,46 +258,46 @@
                     <input type="number" id="p_phi" placeholder="Enter Ф">
                 </div>
                 <div>
-                    <label for="p_vg">V<sub>g</sub> (Gate Voltage; V):</label>
+                    <label for="p_vg">V<sub>G</sub> (Gate Voltage; V):</label>
                     <input type="number" id="p_vg" placeholder="Enter Vg">
                 </div>
                 <div>
-                    <label for="p_vd">V<sub>d</sub> (Drain Voltage; V):</label>
+                    <label for="p_vd">V<sub>D</sub> (Drain Voltage; V):</label>
                     <input type="number" id="p_vd" placeholder="Enter Vd">
                 </div>
                 <div>
-                    <label for="p_vs">V<sub>s</sub> (Source Voltage; V):</label>
+                    <label for="p_vs">V<sub>S</sub> (Source Voltage; V):</label>
                     <input type="number" id="p_vs" placeholder="Enter Vs">
                 </div>
                 <div>
-                    <label for="p_vb">V<sub>b</sub> (Bulk Voltage; V):</label>
+                    <label for="p_vb">V<sub>B</sub> (Bulk Voltage; V):</label>
                     <input type="number" id="p_vb" placeholder="Enter Vb">
                 </div>
                 <!-- PMOS Expressions -->
                 <div class="expressions">
                     <div class="dropdown" data-target="vgs-pmos-details">
-                        V<sub>gs</sub> (PMOS): <span id="vgs-pmos">0</span>
+                        V<sub>GS</sub> (PMOS): <span id="vgs-pmos">0</span>
                     </div>
                     <div class="dropdown-content" id="vgs-pmos-details">
-                        <span>Formula: V<sub>g</sub> - V<sub>s</sub></span>
+                        <span>Formula: V<sub>G</sub> - V<sub>S</sub></span>
                     </div>
                     <div class="dropdown" data-target="vds-pmos-details">
-                        V<sub>ds</sub> (PMOS): <span id="vds-pmos">0</span>
+                        V<sub>DS</sub> (PMOS): <span id="vds-pmos">0</span>
                     </div>
                     <div class="dropdown-content" id="vds-pmos-details">
-                        <span>Formula: V<sub>d</sub> - V<sub>s</sub></span>
+                        <span>Formula: V<sub>D</sub> - V<sub>S</sub></span>
                     </div>
                     <div class="dropdown" data-target="vsb-pmos-details">
-                        V<sub>bs</sub> (PMOS): <span id="vsb-pmos">0</span>
+                        V<sub>BS</sub> (PMOS): <span id="vsb-pmos">0</span>
                     </div>
                     <div class="dropdown-content" id="vsb-pmos-details">
-                        <span>Formula: V<sub>b</sub> - V<sub>s</sub></span>
+                        <span>Formula: V<sub>B</sub> - V<sub>S</sub></span>
                     </div>
                     <div class="dropdown" data-target="vth-pmos-details">
-                        V<sub>th</sub> (PMOS): <span id="vth-pmos">0</span>
+                        V<sub>TH</sub> (PMOS): <span id="vth-pmos">0</span>
                     </div>
                     <div class="dropdown-content" id="vth-pmos-details">
-                        <span>Formula: V<sub>th0</sub> - γ * (sqrt(2 * Ф + V<sub>bs</sub>) - sqrt(2 * Ф))</span>
+                        <span>Formula: V<sub>TH0</sub> - γ * (sqrt(2 * Ф + V<sub>BS</sub>) - sqrt(2 * Ф))</span>
                     </div>
                     <div class="dropdown" data-target="wl-pmos-details">
                         W/L (PMOS): <span id="wl-pmos">0</span>
