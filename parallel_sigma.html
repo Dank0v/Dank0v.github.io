@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parallel Resistors Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .calculator {
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .input-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .results {
+            margin-top: 20px;
+            padding: 15px;
+            background: #e6f7ff;
+            border-radius: 4px;
+        }
+        button {
+            background: #4a90e2;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #357ab8;
+        }
+    </style>
+</head>
+<body>
+    <h1>Parallel Resistors Uncertainty Calculator</h1>
+    
+    <div class="calculator">
+        <div class="input-group">
+            <label for="r1">Resistor 1 (Ω):</label>
+            <input type="number" id="r1" value="20390.72" step="0.01">
+        </div>
+        
+        <div class="input-group">
+            <label for="sigma1">Standard Deviation 1 (Ω):</label>
+            <input type="number" id="sigma1" value="64.43" step="0.01">
+        </div>
+        
+        <div class="input-group">
+            <label for="r2">Resistor 2 (Ω):</label>
+            <input type="number" id="r2" value="19735.52" step="0.01">
+        </div>
+        
+        <div class="input-group">
+            <label for="sigma2">Standard Deviation 2 (Ω):</label>
+            <input type="number" id="sigma2" value="63.75" step="0.01">
+        </div>
+        
+        <button onclick="calculateResistance()">Calculate</button>
+        
+        <div class="results" id="results">
+            <h3>Results:</h3>
+            <p>Equivalent Resistance: <span id="req">--</span> Ω</p>
+            <p>Standard Deviation: <span id="sigmaReq">--</span> Ω</p>
+        </div>
+
+        <div class="formulas">
+            <h3>Formulas Used:</h3>
+            <p>Equivalent Resistance: R_eq = (R₁ × R₂) / (R₁ + R₂)</p>
+            <p>Partial Derivatives:</p>
+            <p>- ∂R/∂R₁ = R₂² / (R₁ + R₂)²</p>
+            <p>- ∂R/∂R₂ = R₁² / (R₁ + R₂)²</p>
+            <p>Standard Deviation: σᵣ = √[(∂R/∂R₁ × σ₁)² + (∂R/∂R₂ × σ₂)²]</p>
+        </div>
+    </div>
+
+    <script>
+        function calculateResistance() {
+            // Get input values
+            const R1 = parseFloat(document.getElementById('r1').value);
+            const sigma1 = parseFloat(document.getElementById('sigma1').value);
+            const R2 = parseFloat(document.getElementById('r2').value);
+            const sigma2 = parseFloat(document.getElementById('sigma2').value);
+            
+            // Calculate equivalent resistance
+            const R_eq = (R1 * R2) / (R1 + R2);
+            
+            // Calculate partial derivatives
+            const dR_eq_dR1 = (R2 * R2) / Math.pow(R1 + R2, 2);
+            const dR_eq_dR2 = (R1 * R1) / Math.pow(R1 + R2, 2);
+            
+            // Calculate standard deviation
+            const sigma_R_eq = Math.sqrt(
+                Math.pow(dR_eq_dR1 * sigma1, 2) + 
+                Math.pow(dR_eq_dR2 * sigma2, 2)
+            );
+            
+            // Display results
+            document.getElementById('req').textContent = R_eq.toFixed(2);
+            document.getElementById('sigmaReq').textContent = sigma_R_eq.toFixed(2);
+        }
+
+        // Calculate on page load
+        calculateResistance();
+    </script>
+</body>
+</html>
